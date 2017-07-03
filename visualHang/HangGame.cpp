@@ -3,9 +3,13 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include<string>
+#include<Windows.h>
 #include "Animation.h"
 #include "Player.h"
 #include "HangGame.h"
+
+using namespace std;
 
 static const float VIEW_HEIGHT = 520.0f;
 
@@ -63,4 +67,87 @@ int HangGame::DisplayHangGame() {
 		window.display();
 	}
 	return 0;
+}
+
+void HangGame::Intro() {
+	HANDLE  hConsole;
+	HangGame hangGame;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	for (int i = 6; i > imgAn; --i) {
+		SetConsoleTextAttribute(hConsole, 10);
+		std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
+		//hangGame.HangingMan(i);
+		Sleep(1000);
+		system("CLS");
+	}
+	SetConsoleTextAttribute(hConsole, 10);
+	std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
+	std::cout << "Please enter the word of choosing: ";
+	std::cin >> hangWord;
+	permHangWord = hangWord;
+	std::cout << "\n";
+	system("CLS");
+	std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
+}
+
+void HangGame::LetterGuess() {
+	if (STOP == -1) {
+		std::cout << "Enter your guessed letter: ";
+		std::cin >> guess;
+	}
+	else
+		exit;
+}
+
+int HangGame::Match() {
+	HANDLE  hConsole;
+	HangGame hangGame;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 10);
+	flip = 1;
+	int leng = hangWord.length();
+	int gmeOvrCntr = leng;
+	for (int i = 0; i < leng; ++i) {
+		if (guess == hangWord[i]) {
+			system("CLS");
+			std::cout << "We have a match!\nThe match was " << guess << "\n";
+			//hangGame.HangingMan(hangImg + 1);
+			SetConsoleTextAttribute(hConsole, 10);
+			std::cout << "You have " << hangImg << " guesses left.\n";
+			hangWord[i] = 0;
+			flip = 0;
+			if (hangWord[i + 1] != 0) {
+				return 0;
+			}
+		}
+		if (hangWord[i] == 0) {
+			--gmeOvrCntr;
+			if (gmeOvrCntr < 1) {
+				std::cout << "You win!!!\n";
+				std::cout << "The winning word was: " << permHangWord << "\n\n";
+				return -1;
+			}
+		}
+	}
+	if (flip != 0) {
+		system("CLS");
+		std::cout << "The letter " << guess << " is not in the word. \n\n";
+		//hangGame.HangingMan(hangImg);
+		SetConsoleTextAttribute(hConsole, 10);
+		std::cout << "You have " << hangImg - 1 << " guesses left.\n";
+		if (hangImg - 1 == 0) {
+			std::cout << "The winning word was: " << permHangWord << "\n";
+			return -1;
+		}
+		--hangImg;
+		return 0;
+	}
+	return 0;
+}
+
+bool HangGame::keepPlaying() {
+	if (hangImg > 0) {
+		return true;
+	}
+	else return false;
 }
