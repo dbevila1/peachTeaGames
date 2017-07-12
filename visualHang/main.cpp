@@ -9,7 +9,6 @@
 #include "HangGame.h"
 
 static const float VIEW_HEIGHT = 520.0f;
-
 int main(){
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Main Menu", sf::Style::Close | sf::Style::Resize);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
