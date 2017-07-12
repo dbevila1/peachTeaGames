@@ -26,3 +26,18 @@ void Animation::Update(int row, float deltaTime) {
 	uvRect.left = currentImage.x * uvRect.width;
 	uvRect.top = currentImage.y * uvRect.height;
 }
+
+void Animation::PosUpdate(int row, int column, float deltaTime) {
+	currentImage.y = row;
+	currentImage.x = column;
+	totalTime += deltaTime;
+
+	if (totalTime >= switchTime) {
+		totalTime -= switchTime;
+		currentImage.y = row;
+		currentImage.x = column;
+	}
+
+	uvRect.left = currentImage.x * uvRect.width;
+	uvRect.top = currentImage.y * uvRect.height;
+}

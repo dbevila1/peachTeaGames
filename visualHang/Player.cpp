@@ -16,6 +16,13 @@ void Player::Update(float deltaTime) {
 	body.move(movement);
 }
 
+void Player::PosUpdate(int row, int column,float deltaTime) {
+	sf::Vector2f movement(0.0f, 0.0f);
+	animation.PosUpdate(row, column, deltaTime);
+	body.setTextureRect(animation.uvRect);
+	body.move(movement);
+}
+
 void Player::Draw(sf::RenderWindow& window) {
 	window.draw(body, sf::BlendMultiply);
 }

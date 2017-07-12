@@ -58,6 +58,12 @@ int HangGame::DisplayHangGame() {
 			}
 		}
 		player.Update(deltaTime);
+		for(int i = 0; i < 200000; ++i){
+			true;
+		}
+		player.PosUpdate(1, 3, deltaTime);
+
+		//Update(1, 2, deltaTime);
 		view.setCenter(player.GetPosition());
 
 		window.clear();
