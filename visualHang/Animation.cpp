@@ -10,6 +10,7 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
 	uvRect.height = texture->getSize().y / float(imageCount.y);
 }
 
+/*
 void Animation::Update(int row, float deltaTime) {
 	currentImage.y = row;
 	totalTime += deltaTime;
@@ -27,15 +28,20 @@ void Animation::Update(int row, float deltaTime) {
 	uvRect.top = currentImage.y * uvRect.height;
 }
 
-void Animation::PosUpdate(int row, int column, float deltaTime) {
+*/
+
+void Animation::PosUpdate(int column, int row, float deltaTime) {
 	currentImage.y = row;
 	currentImage.x = column;
 	totalTime += deltaTime;
 
 	if (totalTime >= switchTime) {
 		totalTime -= switchTime;
-		currentImage.y = row;
-		currentImage.x = column;
+		currentImage.x = 0;
+
+		if (currentImage.x >= imageCount.x) {
+			currentImage.x = 0;
+		}
 	}
 
 	uvRect.left = currentImage.x * uvRect.width;

@@ -57,43 +57,32 @@ int HangGame::DisplayHangGame() {
 				break;
 			}
 		}
-		player.Update(deltaTime);
-		for(int i = 0; i < 200000; ++i){
-			true;
-		}
-		player.PosUpdate(1, 3, deltaTime);
+		//player.Update(deltaTime);
+		player.PosUpdate(0, 2, deltaTime);
 
-		//Update(1, 2, deltaTime);
 		view.setCenter(player.GetPosition());
 
 		window.clear();
 		window.setView(view);
 		window.draw(background);
 		player.Draw(window);
+		window.draw(Intro(window));
+
 		window.display();
 	}
 	return 0;
 }
 
-void HangGame::Intro() {
-	HANDLE  hConsole;
+sf::Text HangGame::Intro(const sf::RenderWindow& window) {
 	HangGame hangGame;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	for (int i = 6; i > imgAn; --i) {
-		SetConsoleTextAttribute(hConsole, 10);
-		std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
-		//hangGame.HangingMan(i);
-		Sleep(1000);
-		system("CLS");
-	}
-	SetConsoleTextAttribute(hConsole, 10);
-	std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
-	std::cout << "Please enter the word of choosing: ";
-	std::cin >> hangWord;
-	permHangWord = hangWord;
-	std::cout << "\n";
-	system("CLS");
-	std::cout << "Welcome to HangMan! V1.0, I hope your ready to play.\n";
+	sf::Text text;
+	font.loadFromFile("ARIALBD.ttf");
+	text.setFont(font);
+	text.setString("Welcome to Hang Man!");
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Black);
+	text.setPosition(float(window.getSize().x / 2), (float(window.getSize().y / 6)));
+	return text;
 }
 
 void HangGame::LetterGuess() {

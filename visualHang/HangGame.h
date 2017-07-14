@@ -6,7 +6,7 @@ class HangGame {
 public:
 	void ResizeView(const sf::RenderWindow& window, sf::View& view);
 	int DisplayHangGame();
-	void Intro();
+	sf::Text Intro(const sf::RenderWindow& window);
 	void LetterGuess();
 	int Match();
 	bool keepPlaying();
@@ -14,6 +14,7 @@ public:
 private:
 	std::string permHangWord;
 	std::string hangWord;
+	sf::Font font;
 	int imgAn = 0;
 	char guess;
 	int hangImg = 6;
